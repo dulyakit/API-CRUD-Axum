@@ -1,0 +1,20 @@
+services:
+  mongo:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=homestead
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      start_interval: 5s
+      interval: 10s
+      timeout: 1s
+      retries: 10
+      start_period: 3s
+
+
+# docker compose -f docker-compose.db.yml up -d
